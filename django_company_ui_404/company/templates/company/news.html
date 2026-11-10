@@ -1,0 +1,20 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Новини{% endblock %}
+
+{% block content %}
+<h1>Новини</h1>
+<div class="cards">
+    {% for item in news %}
+    <article class="card">
+        <img src="{% static item.image %}" alt="">
+        <div class="card-body">
+            <time>{{ item.date }}</time>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

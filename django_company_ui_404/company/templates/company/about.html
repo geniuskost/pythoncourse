@@ -1,0 +1,17 @@
+{% extends "company/base.html" %}
+
+{% block title %}Про компанію{% endblock %}
+
+{% block content %}
+<h1>Про компанію</h1>
+<p class="lead">«Моя компанія» створює програмні продукти для бізнесу: від веб-сервісів до внутрішніх систем автоматизації.</p>
+
+<div class="stats">
+    {% for value, label in stats %}
+    <div class="stat"><strong>{{ value }}</strong><span>{{ label }}</span></div>
+    {% endfor %}
+</div>
+
+<p>Наша команда працює в Україні, Франції та Австрії. Ми цінуємо прозорість, якість коду та довгострокові відносини з клієнтами.</p>
+<p><a class="btn" href="{% url 'history' %}">Історія компанії</a></p>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Контакти{% endblock %}
+
+{% block content %}
+<h1>Контакти</h1>
+<p class="lead">Оберіть найближчий до вас офіс.</p>
+<div class="cards">
+    {% for slug, office in offices.items %}
+    <a class="card office-card" href="{% url 'office' slug %}">
+        <img class="flag" src="{% static office.flag %}" alt="Прапор: {{ office.name }}">
+        <div class="card-body">
+            <h3>{{ office.name }}</h3>
+            <p>{{ office.city }}</p>
+            <p>{{ office.address }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

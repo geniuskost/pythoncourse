@@ -1,0 +1,35 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <h1>Програмні рішення, які працюють на бізнес</h1>
+        <p>Ми створюємо надійні продукти для клієнтів у трьох країнах уже понад 16 років.</p>
+        <p>
+            <a class="btn" href="{% url 'about' %}">Про компанію</a>
+            <a class="btn btn-ghost" href="{% url 'contacts' %}">Зв’язатися</a>
+        </p>
+    </div>
+    <img class="hero-img" src="{% static 'company/img/hero.svg' %}" alt="Ілюстрація">
+</section>
+
+<section>
+    <h2>Останні новини</h2>
+    <div class="cards">
+        {% for item in latest_news %}
+        <article class="card">
+            <img src="{% static item.image %}" alt="">
+            <div class="card-body">
+                <time>{{ item.date }}</time>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.text }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    <p><a href="{% url 'news' %}">Усі новини →</a></p>
+</section>
+{% endblock %}

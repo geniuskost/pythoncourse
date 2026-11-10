@@ -1,0 +1,17 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Офіс: {{ office.name }}{% endblock %}
+
+{% block content %}
+<p class="crumbs"><a href="{% url 'contacts' %}">Контакти</a> / {{ office.name }}</p>
+<h1><img class="flag-inline" src="{% static office.flag %}" alt="" width="40" height="27"> Офіс: {{ office.name }}</h1>
+<p class="lead">{{ office.description }}</p>
+<dl class="details">
+    <dt>Місто</dt><dd>{{ office.city }}</dd>
+    <dt>Адреса</dt><dd>{{ office.address }}</dd>
+    <dt>Телефон</dt><dd><a href="tel:{{ office.phone }}">{{ office.phone }}</a></dd>
+    <dt>Email</dt><dd><a href="mailto:{{ office.email }}">{{ office.email }}</a></dd>
+</dl>
+<p><a href="{% url 'contacts' %}">← Усі офіси</a></p>
+{% endblock %}

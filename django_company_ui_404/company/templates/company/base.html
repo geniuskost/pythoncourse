@@ -1,0 +1,43 @@
+{% load static %}<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Моя компанія{% endblock %} — Моя компанія</title>
+    <link rel="stylesheet" href="{% static 'company/css/style.css' %}">
+</head>
+<body>
+    {% with current=request.resolver_match.url_name %}
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="{% url 'home' %}">
+                <img src="{% static 'company/img/logo.svg' %}" alt="" width="36" height="36">
+                <span>Моя компанія</span>
+            </a>
+            <nav class="nav">
+                <a href="{% url 'home' %}" {% if current == 'home' %}class="active"{% endif %}>Головна</a>
+                <a href="{% url 'news' %}" {% if current == 'news' %}class="active"{% endif %}>Новини</a>
+                <a href="{% url 'management' %}" {% if current == 'management' %}class="active"{% endif %}>Керівництво</a>
+                <a href="{% url 'about' %}" {% if current == 'about' or current == 'history' %}class="active"{% endif %}>Про компанію</a>
+                <a href="{% url 'contacts' %}" {% if current == 'contacts' or current == 'office' %}class="active"{% endif %}>Контакти</a>
+            </nav>
+        </div>
+    </header>
+    {% endwith %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <span>© 2026 Моя компанія</span>
+            <span>
+                <a href="{% url 'office' 'ukraine' %}">Україна</a> ·
+                <a href="{% url 'office' 'france' %}">Франція</a> ·
+                <a href="{% url 'office' 'austria' %}">Австрія</a>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

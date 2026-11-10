@@ -1,0 +1,14 @@
+{% extends "company/base.html" %}
+
+{% block title %}404{% endblock %}
+
+{% block content %}
+<section class="not-found">
+    <h1>404</h1>
+    <p>Такої сторінки не існує або її було переміщено.</p>
+    <p>
+        <a class="btn" href="{% url 'home' %}">На головну</a>
+        <a class="btn btn-ghost" href="{% url 'contacts' %}">Контакти</a>
+    </p>
+</section>
+{% endblock %}

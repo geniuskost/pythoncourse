@@ -1,0 +1,13 @@
+{% extends "company/base.html" %}
+
+{% block title %}Історія{% endblock %}
+
+{% block content %}
+<p class="crumbs"><a href="{% url 'about' %}">Про компанію</a> / Історія</p>
+<h1>Історія компанії</h1>
+<ol class="timeline">
+    {% for year, text in timeline %}
+    <li><strong>{{ year }}</strong><span>{{ text }}</span></li>
+    {% endfor %}
+</ol>
+{% endblock %}
