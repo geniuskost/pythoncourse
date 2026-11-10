@@ -1,0 +1,15 @@
+{% extends "company/base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<section class="section-contacts">
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.lead }}</p>
+    {% if page.items %}
+    <ul>
+        {% for item in page.items %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,15 +1,15 @@
 from django.contrib import admin
 from django.urls import path, re_path
 
-from company import views
+from company.views import PageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    re_path(r'^news(?:/.*)?$', views.news, name='news'),
-    re_path(r'^management(?:/.*)?$', views.management, name='management'),
-    re_path(r'^about(?:/.*)?$', views.about, name='about'),
-    re_path(r'^contacts?(?:/.*)?$', views.contacts, name='contacts'),
+    path('', PageView.as_view(key='home'), name='home'),
+    re_path(r'^news(?:/.*)?$', PageView.as_view(key='news'), name='news'),
+    re_path(r'^management(?:/.*)?$', PageView.as_view(key='management'), name='management'),
+    re_path(r'^about(?:/.*)?$', PageView.as_view(key='about'), name='about'),
+    re_path(r'^contacts?(?:/.*)?$', PageView.as_view(key='contacts'), name='contacts'),
 ]
 
 handler404 = 'company.views.not_found'

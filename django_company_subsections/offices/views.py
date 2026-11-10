@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-from company.views import NAV, PAGES
+from company.views import NAV
 
 OFFICES = {
     'france': {
@@ -33,17 +33,19 @@ OFFICES = {
 }
 
 
-def index(request, *args):
-    page = dict(PAGES['contacts'])
-    page['items'] = [
-        'Офіс у Франції: /contacts/france',
-        'Офіс в Україні: /contacts/ukraine',
-        'Офіс в Австрії: /contacts/austria',
-    ]
-    context = {'nav': NAV, 'current': 'contacts', 'page': page}
-    return render(request, 'company/page.html', context)
+class ContactsView(TemplateView):
+    template_name = 'offices/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(nav=NAV, current='contacts', offices=OFFICES)
+        return context
 
 
-def office(request, country):
-    context = {'nav': NAV, 'current': 'contacts', 'page': OFFICES[country]}
-    return render(request, 'company/page.html', context)
+class OfficeView(TemplateView):
+    template_name = 'offices/office.html'
+
+    def get_context_data(self, country, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(nav=NAV, current='contacts', office=OFFICES[country])
+        return context

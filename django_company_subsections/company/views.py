@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 NAV = [
     ('home', '/', 'Головна'),
@@ -49,25 +50,16 @@ PAGES = {
 }
 
 
-def render_page(request, key):
-    context = {'nav': NAV, 'current': key, 'page': PAGES[key]}
-    return render(request, 'company/page.html', context)
+class PageView(TemplateView):
+    key = None
 
+    def get_template_names(self):
+        return [f'company/{self.key}.html']
 
-def home(request):
-    return render_page(request, 'home')
-
-
-def news(request, *args):
-    return render_page(request, 'news')
-
-
-def management(request, *args):
-    return render_page(request, 'management')
-
-
-def about(request, *args):
-    return render_page(request, 'about')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(nav=NAV, current=self.key, page=PAGES[self.key])
+        return context
 
 
 def not_found(request, exception=None):

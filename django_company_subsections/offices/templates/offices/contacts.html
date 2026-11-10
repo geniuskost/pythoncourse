@@ -1,0 +1,15 @@
+{% extends "company/base.html" %}
+
+{% block title %}Контакти{% endblock %}
+
+{% block content %}
+<section class="section-contacts">
+    <h1>Контакти</h1>
+    <p>Оберіть офіс:</p>
+    <ul>
+        {% for slug, office in offices.items %}
+        <li><a href="/contacts/{{ slug }}">{{ office.title }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

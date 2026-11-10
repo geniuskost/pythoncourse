@@ -1,4 +1,5 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.views.generic import TemplateView
 
 OFFICES = {
     'france': {
@@ -31,12 +32,24 @@ OFFICES = {
 }
 
 
-def index(request):
-    return render(request, 'offices/contacts.html', {'offices': OFFICES})
+class ContactsView(TemplateView):
+    template_name = 'offices/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['offices'] = OFFICES
+        return context
 
 
-def office(request, country):
-    data = OFFICES.get(country)
-    if data is None:
-        return redirect('contacts')
-    return render(request, 'offices/office.html', {'office': data, 'slug': country})
+class OfficeView(TemplateView):
+    template_name = 'offices/office.html'
+
+    def get(self, request, country, **kwargs):
+        if country not in OFFICES:
+            return redirect('contacts')
+        return super().get(request, country=country, **kwargs)
+
+    def get_context_data(self, country, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(office=OFFICES[country], slug=country)
+        return context

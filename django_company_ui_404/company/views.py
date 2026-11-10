@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.views.generic import TemplateView
 
 NEWS = [
     {
@@ -49,24 +50,49 @@ TIMELINE = [
 STATS = [('16', 'років на ринку'), ('120', 'співробітників'), ('3', 'країни'), ('250+', 'проєктів')]
 
 
-def home(request):
-    return render(request, 'company/home.html', {'latest_news': NEWS[:3]})
+class HomeView(TemplateView):
+    template_name = 'company/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_news'] = NEWS[:3]
+        return context
 
 
-def news(request):
-    return render(request, 'company/news.html', {'news': NEWS})
+class NewsView(TemplateView):
+    template_name = 'company/news.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news'] = NEWS
+        return context
 
 
-def management(request):
-    return render(request, 'company/management.html', {'people': MANAGEMENT})
+class ManagementView(TemplateView):
+    template_name = 'company/management.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['people'] = MANAGEMENT
+        return context
 
 
-def about(request):
-    return render(request, 'company/about.html', {'stats': STATS})
+class AboutView(TemplateView):
+    template_name = 'company/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = STATS
+        return context
 
 
-def history(request):
-    return render(request, 'company/history.html', {'timeline': TIMELINE})
+class HistoryView(TemplateView):
+    template_name = 'company/history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['timeline'] = TIMELINE
+        return context
 
 
 def section_redirect(request, section):

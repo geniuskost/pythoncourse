@@ -1,0 +1,14 @@
+{% extends "company/base.html" %}
+
+{% block title %}{{ office.title }}{% endblock %}
+
+{% block content %}
+<section class="section-office">
+    <p><a href="/contacts/">← Усі офіси</a></p>
+    <h1>{{ office.title }}</h1>
+    <p>{{ office.lead }}</p>
+    <ul>
+        {% for item in office.items %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+</section>
+{% endblock %}
